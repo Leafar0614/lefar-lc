@@ -1,3 +1,12 @@
+/**
+ * 实现一个算法，确定一个字符串 s 的所有字符是否全都不同。
+
+    示例 1：
+
+    输入: s = "leetcode"
+    输出: false 
+ */
+
 /** @param {string} astr
  */
 function isUnique(astr) {
@@ -34,7 +43,7 @@ function isUnique(astr) {
     bit |= 1 << offset;
   }
 
-  BigInt
+  BigInt;
 
   return true;
 }
