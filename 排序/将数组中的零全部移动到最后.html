@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+    给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+    示例:
+    输入: [0,1,0,3,12]
+    输出: [1,3,12,0,0]
+    说明:
+    必须在原数组上操作，不能拷贝额外的数组。
+    尽量减少操作次数。
+    -->
+    <script>
+      /**
+       * 交换法
+       *
+       * 记录第一个0存在的位置，不断地将非零的与第一个0相互交换
+       * @param {number[]} nums
+       */
+      function moveZeros1(nums) {
+        if (nums.length < 2) {
+          return nums;
+        }
+        let tmp = 0; //tmp指向第一个0存在的位置
+        for (let i = 0; i < nums.length; i++) {
+          if (nums[i] != 0) {
+            if (nums[tmp] == 0) {
+              nums[tmp] = nums[i];
+              nums[i] = 0;
+            }
+            tmp++;
+          }
+        }
+        return nums;
+      }
+
+      /*
+       * 快慢指针
+       *
+       * 原理就是遍历一遍，把所有非零的排到前面，
+       * 然后把剩余的直接置为零就行
+       * 期间会有一个指针，记录当前应该排到哪个位置
+       *
+       * @param {number[]} nums
+       */
+      function moveZeros2(nums) {
+        var n = nums.length;
+        var k = 0;
+
+        for (let i = 0; i < n; i++) {
+          if (nums[i] != 0) {
+            nums[k++] = nums[i]; //k从头慢慢放不为0的数
+          }
+        }
+
+        for (let i = k; i < n; i++) {
+          nums[i] = 0; //剩下的置为0
+        }
+
+        return nums;
+
+        //
+      }
+    </script>
+  </body>
+</html>
+
+<script>
+  function moveZeros1(nums) {
+    let zPtr = 0;
+
+    for (let i = 0, len = nums.length; i < len; i++) {
+      if (nums[i] !== 0) {
+        // 如果发现一位它不等于零
+        // 那么就要进行交换
+        // 与谁交换呢，是与第一位0的进行交换
+        if (nums[zPtr] === 0) {
+          // 这里可以保证是指向0的，否则的话遍历的时候，
+          // idx会一直往后推进
+          nums[zPtr] = nums[i];
+          nums[i] = 0;
+        }
+        // 如果不是零，则这个idx会与i一同往后继续推进
+        // 所以无论如何，这个ptr都要继续往后推进
+        zPtr++;
+      }
+    }
+
+    return nums;
+  }
+
+  /**
+   * 快慢指针
+   */
+  function moveZeors2(nums) {
+    let ptr = 0;
+
+    // 把所有的前置
+    for (let i = 0, len = nums.length; i < len; i++) {
+      if (nums[i] !== 0) {
+        nums[ptr++] = nums[i];
+      }
+    }
+
+    // 非零的元素已经移动到ptr前面去了，
+    // 此时只用把剩下的设置为0即可
+    for (let i = ptr; ptr < nums.length; i++) {
+      nums[i] = 0;
+    }
+    //
+  }
+</script>
